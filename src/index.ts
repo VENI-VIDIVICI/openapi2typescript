@@ -39,6 +39,8 @@ export type GenerateServiceProps = {
    * 生成的文件夹的路径
    */
   serversPath?: string;
+
+  includeFn?: (args:any) => boolean;
   /**
    * Swagger 2.0 或 OpenAPI 3.0 的地址
    */

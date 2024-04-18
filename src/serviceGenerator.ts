@@ -385,6 +385,10 @@ class ServiceGenerator {
     this.getServiceTP().forEach((tp) => {
       // 根据当前数据源类型选择恰当的 controller 模版
       const template = 'serviceController';
+      // TODO 添加过滤条件
+      if (this.config.includeFn && !this.config.includeFn(tp)) {
+        return;
+      }
       const hasError = this.genFileFromTemplate(
         this.getFinalFileName(`${tp.className}.js`),
         template,
