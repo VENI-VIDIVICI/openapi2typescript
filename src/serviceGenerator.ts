@@ -371,13 +371,14 @@ class ServiceGenerator {
       Log(`🚥 serves 生成失败: ${error}`);
     }
     // 生成 ts 类型声明
-    this.genFileFromTemplate('typings.d.ts', 'interface', {
-      namespace: this.config.namespace,
-      nullable: this.config.nullable,
-      // namespace: 'API',
-      list: this.getInterfaceTP(),
-      disableTypeCheck: false,
-    });
+    // 注释，提供给js
+    // this.genFileFromTemplate('typings.d.ts', 'interface', {
+    //   namespace: this.config.namespace,
+    //   nullable: this.config.nullable,
+    //   // namespace: 'API',
+    //   list: this.getInterfaceTP(),
+    //   disableTypeCheck: false,
+    // });
     // 生成 controller 文件
     const prettierError = [];
     // 生成 service 统计
@@ -385,7 +386,7 @@ class ServiceGenerator {
       // 根据当前数据源类型选择恰当的 controller 模版
       const template = 'serviceController';
       const hasError = this.genFileFromTemplate(
-        this.getFinalFileName(`${tp.className}.ts`),
+        this.getFinalFileName(`${tp.className}.js`),
         template,
         {
           namespace: this.config.namespace,
@@ -402,7 +403,7 @@ class ServiceGenerator {
       Log(`🚥 格式化失败，请检查 service 文件内可能存在的语法错误`);
     }
     // 生成 index 文件
-    this.genFileFromTemplate(`index.ts`, 'serviceIndex', {
+    this.genFileFromTemplate(`index.js`, 'serviceIndex', {
       list: this.classNameList,
       disableTypeCheck: false,
     });
